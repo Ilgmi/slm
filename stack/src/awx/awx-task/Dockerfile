@@ -15,8 +15,6 @@ ENV AWX_SKIP_MIGRATIONS="0" \
     AWX_TAG=22.7.0
 
 COPY conf/ /etc/tower/conf.d/
-COPY nginx/nginx.conf /etc/nginx/nginx.conf
-COPY nginx/nginx.locations.conf /etc/nginx/conf.d/nginx.locations.conf
 COPY SECRET_KEY /etc/tower/SECRET_KEY
 COPY receptor/ /etc/receptor/
 COPY supervisor.conf /etc/supervisord.conf
