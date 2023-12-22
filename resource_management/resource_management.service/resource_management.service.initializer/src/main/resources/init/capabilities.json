@@ -473,5 +473,62 @@
       "KUBERNETES"
     ],
     "clusterMemberTypes": []
+  },
+  {
+    "id": "a7a8311b-c3d0-45fe-941f-ec1dfcf749e2",
+    "capabilityClass": "DeploymentCapability",
+    "name": "Codesys Linux SL",
+    "logo": "mdi-test-tube",
+    "type": [
+      "SETUP",
+      "DEPLOY"
+    ],
+    "connection": "tcp",
+    "actions": {
+      "DEPLOY": {
+        "actionClass": "AwxAction",
+        "actionType": "DEPLOY",
+        "awxRepo": "https://gitlab.cc-asp.fraunhofer.de/eclipse-slm/slm-dc-codesys",
+        "awxBranch": "feature/codesys-linux",
+        "username": "p830106",
+        "password": "MnVretmrjnSguePn1!",
+        "playbook": "deploy.yml",
+        "connectionTypes": ["ssh"]
+      },
+      "UNINSTALL": {
+        "actionClass": "AwxAction",
+        "actionType": "UNINSTALL",
+        "awxRepo": "https://gitlab.cc-asp.fraunhofer.de/eclipse-slm/slm-dc-codesys",
+        "awxBranch": "feature/codesys-linux",
+        "username": "p830106",
+        "password": "MnVretmrjnSguePn1!",
+        "playbook": "uninstall.yml",
+        "connectionTypes": ["ssh"]
+      },
+      "INSTALL": {
+        "actionClass": "AwxAction",
+        "actionType": "INSTALL",
+        "awxRepo": "https://gitlab.cc-asp.fraunhofer.de/eclipse-slm/slm-dc-codesys",
+        "awxBranch": "feature/codesys-linux",
+        "username": "p830106",
+        "password": "MnVretmrjnSguePn1!",
+        "playbook": "install.yml",
+        "connectionTypes": ["ssh"]
+      },
+      "UNDEPLOY": {
+        "actionClass": "AwxAction",
+        "actionType": "UNDEPLOY",
+        "awxRepo": "https://gitlab.cc-asp.fraunhofer.de/eclipse-slm/slm-dc-codesys",
+        "awxBranch": "feature/codesys-linux",
+        "username": "p830106",
+        "password": "MnVretmrjnSguePn1!",
+        "playbook": "undeploy.yml",
+        "connectionTypes": ["ssh"]
+      }
+    },
+    "supportedDeploymentTypes": [
+      "CODESYS"
+    ],
+    "clusterMemberTypes": []
   }
 ]
