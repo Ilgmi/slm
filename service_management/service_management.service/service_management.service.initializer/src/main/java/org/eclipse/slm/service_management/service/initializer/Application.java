@@ -14,7 +14,9 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.EventListener;
 
@@ -32,9 +34,12 @@ import java.util.List;
                 DataSourceAutoConfiguration.class,
                 SecurityAutoConfiguration.class
         })
+@EnableDiscoveryClient(autoRegister=false)
 public class Application {
 
     private static final Logger LOG = LoggerFactory.getLogger(Application.class);
+
+    private final ConfigurableApplicationContext applicationContext;
 
     private final ServiceOfferingInitializer serviceOfferingInitializer;
 
@@ -49,7 +54,8 @@ public class Application {
     private final DiscoveryClient discoveryClient;
 
     @Autowired
-    public Application(ServiceOfferingInitializer serviceOfferingInitializer, ServiceVendorsInitializer serviceVendorsInitializer, ServiceRepositoriesInitializer serviceRepositoriesInitializer, ServiceCategoriesInitializer serviceCategoriesInitializer, GitRepoInitializer gitRepoInitializer, DiscoveryClient discoveryClient) {
+    public Application(ConfigurableApplicationContext applicationContext, ServiceOfferingInitializer serviceOfferingInitializer, ServiceVendorsInitializer serviceVendorsInitializer, ServiceRepositoriesInitializer serviceRepositoriesInitializer, ServiceCategoriesInitializer serviceCategoriesInitializer, GitRepoInitializer gitRepoInitializer, DiscoveryClient discoveryClient) {
+        this.applicationContext = applicationContext;
         this.serviceOfferingInitializer = serviceOfferingInitializer;
         this.serviceVendorsInitializer = serviceVendorsInitializer;
         this.serviceRepositoriesInitializer = serviceRepositoriesInitializer;
@@ -73,11 +79,12 @@ public class Application {
     @EventListener(ApplicationReadyEvent.class)
     @Transactional
     public void init() throws IOException, ApiException, InterruptedException {
-        List<ServiceInstance> serviceManagementInstances = null;
-        while (serviceManagementInstances != null && serviceManagementInstances.size() > 0) {
+        List<ServiceInstance> serviceManagementInstances = discoveryClient.getInstances("service-management");
+        while (serviceManagementInstances.size() == 0) {
+            var services = discoveryClient.getServices();
             serviceManagementInstances = discoveryClient.getInstances("service-management");
             LOG.error("No service management instance available");
-            Thread.sleep(1000);
+            Thread.sleep(5000);
         }
         var serviceManagementInstance = serviceManagementInstances.get(0);
 
@@ -101,6 +108,8 @@ public class Application {
             this.serviceOfferingInitializer.init(initDirectory);
             LOG.info("Finished initialization from directory '" + initDirectory + "'");
         }
+
+        applicationContext.close();
     }
 
 }
