@@ -490,8 +490,8 @@
         "actionType": "DEPLOY",
         "awxRepo": "https://gitlab.cc-asp.fraunhofer.de/eclipse-slm/slm-dc-codesys",
         "awxBranch": "feature/codesys-linux",
-        "username": "p830106",
-        "password": "MnVretmrjnSguePn1!",
+        "username": "",
+        "password": "",
         "playbook": "deploy.yml",
         "connectionTypes": ["ssh"]
       },
@@ -500,8 +500,8 @@
         "actionType": "UNINSTALL",
         "awxRepo": "https://gitlab.cc-asp.fraunhofer.de/eclipse-slm/slm-dc-codesys",
         "awxBranch": "feature/codesys-linux",
-        "username": "p830106",
-        "password": "MnVretmrjnSguePn1!",
+        "username": "",
+        "password": "",
         "playbook": "uninstall.yml",
         "connectionTypes": ["ssh"]
       },
@@ -510,8 +510,8 @@
         "actionType": "INSTALL",
         "awxRepo": "https://gitlab.cc-asp.fraunhofer.de/eclipse-slm/slm-dc-codesys",
         "awxBranch": "feature/codesys-linux",
-        "username": "p830106",
-        "password": "MnVretmrjnSguePn1!",
+        "username": "",
+        "password": "",
         "playbook": "install.yml",
         "connectionTypes": ["ssh"]
       },
@@ -520,8 +520,8 @@
         "actionType": "UNDEPLOY",
         "awxRepo": "https://gitlab.cc-asp.fraunhofer.de/eclipse-slm/slm-dc-codesys",
         "awxBranch": "feature/codesys-linux",
-        "username": "p830106",
-        "password": "MnVretmrjnSguePn1!",
+        "username": "",
+        "password": "",
         "playbook": "undeploy.yml",
         "connectionTypes": ["ssh"]
       }
